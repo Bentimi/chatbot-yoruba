@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="{% static 'css/history.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-200">
+
+    <section id="section" class=" shadow-md shadow-gray-600 w-full max-w-lg">
+        <div class="flex mx-3 justify-between items-center">
+        <div class="justify-center flex">
+            <div class="my-5 bg-green-900 rounded-full w-fit p-3">
+                <img class="w-12 animate-bounce" src="{% static 'img/robot.png' %}" alt="">
+            </div>
+        </div>
+        <div class="justify- flex mb-2">
+           <div class="shadow-gray-500 shadow-sm bg-gray-600 bg-opacity-15 w-fit p-3 rounded-xl backdrop-blur-md">
+            <p class="text-center text-black text-opacity-50">
+                Yoruba ChatBot
+            </p>
+            <p id="current-time" class="font-mono font-semibold text-center"></p>
+           </div>
+        </div>
+    </div>
+    
+        <div id="chat-history" class="flex flex-col gap-2 h-96  p-4 overflow-y-auto container">
+            <div class="border-l-8 border-green-900 p-3 bg-green-200">
+                <h5 class="text-xl font-semibold">ALAYE PATAKI</h5>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita cupiditate similique quis, 
+                    quasi iste optio quas molestiae amet quia doloremque repellat autem libero? Quos tempora nihil culpa quas nobis quam.
+                </p>
+            </div>
+            <!-- Chat History -->
+        </div>
+
+        <main class="justify-center flex py-5">
+            <div id="chatbox">
+                <form id="chat-form" class="flex justify-center items-center">
+
+                <input id="chat-input" type="text" class="text-black border-2 border-gray-400 h-10 w-80 px-2 text-xl rounded-2xl bg-transparent appearance-none focus:outline-1 font-serif focus:border-transparent focus:ring-gray-400 focus:border-b-2 
+                shadow-gray-700 min-h-15 sm:w-96 lg:min-w-80 placeholder-gray-700 backdrop-blur-md caret-red-700" placeholder="Type Here ...">
+
+
+            <button type="submit" class="ml-2">
+                    <div class="bg-green-900 rounded-full p-2 text-center h-10 w-10 text-white hover:bg-green-800 text-xl">
+                        <ion-icon name="send"></ion-icon>
+                    </div>
+                </button>
+            <!-- <button type="submit" class="bg-green-900 ml-1 flex justify-center items-center text-center text-xl p-2
+            text-white shadow-md shadow-gray-600 w-12
+             rounded-full hover:bg-green-800">
+                    <ion-icon name="send"></ion-icon>
+                </button> -->
+                </form>
+            </div>
+        </main>
+    </section>
+    
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <!-- Javascript -->
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatHistory = document.getElementById('chat-history');
+        const currentTimeElement = document.getElementById('current-time');
+
+        chatForm.addEventListener('submit', function(event){
+            event.preventDefault();
+
+            const message = chatInput.value.trim();
+
+            if(message){
+                const messageWrapper = document.createElement('div');
+                messageWrapper.classList.add('chat_message', 'user');
+
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', 'user');
+                messageElement.textContent = message;
+                messageElement.innerHTML = `
+            <div class="">
+               <p class="font-bold text-green-500">YOU</p>
+                <p>${message}</p>
+                <p class="text-xs text-end text-gray-300">${getTime()}</p>
+                
+            </div>
+        `;
+
+                messageWrapper.appendChild(messageElement);
+                chatHistory.appendChild(messageWrapper);
+                chatInput.value ='';
+
+                fetch("{% url 'chatbot_response' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({ 'message': message })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const response = data.response;
+                    const messageWrapper2 = document.createElement('div');
+                    messageWrapper2.classList.add('chat-message', 'ai');
+
+                    const messageElement2 = document.createElement('div');
+                    messageElement2.classList.add('message', 'ai');
+                    messageElement2.textContent = response;
+                //     setTimeout(() => {
+                //     addAIMessage(response);
+                //     chatHistory.scrollTop = chatHistory.scrollHeight; // Scroll to bottom after adding message
+                // }, 10000);
+                    messageElement2.innerHTML = `
+                    <div class="">
+                    <p class="font-bold text-black">CHATBOT</p>
+                    <p>${response}</p>
+                    <p class="text-xs text-right text-white">${getTime()}</p>
+            
+                    </div>
+                `;
+                    messageWrapper2.appendChild(messageElement2);
+                    chatHistory.appendChild(messageWrapper2);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }
+        });
+
+        function getCurrentTime() {
+        const now = new Date();
+        const year = now.getFullYear().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const sec = now.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}:${sec} ${year}`;
+    }
+
+    setInterval(() => {
+        currentTimeElement.textContent = getCurrentTime();
+    }, 1000);
+
+        function getTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+
+    setInterval(() => {
+        currentTimeElement.textContent = getCurrentTime();
+    }, 1000);
+
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        };
+
+
+    </script>
+</body>
+</html>

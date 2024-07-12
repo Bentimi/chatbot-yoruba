@@ -1,0 +1,67 @@
+body, html{
+    user-select: none;
+}
+#chat-history{
+    -ms-overflow-style: none;
+    -moz-overflow-style: none;
+    scrollbar-width: none;
+}
+#chat-history::-webkit-scrollbar{
+    display: none;
+}
+
+#chat-history::-ms-scrollbar{
+    display: none;
+    scrollbar-width: none;
+}
+#chat-history::-moz-scrollbar{
+    display: none;
+}
+#section{
+    background-image: url('https://t3.ftcdn.net/jpg/08/10/24/70/240_F_810247009_GLKjuuWFNOepG64So2XZrBMAQ8wGRG6e.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+.message{
+    color: whitesmoke;
+    overflow-wrap: break-word;
+}
+/* ai response */
+.chat-message{
+    /* display: flex; */
+    width: 60%;
+    text-align: left;
+    background-image: linear-gradient(100deg, green, rgb(3, 145, 3), rgb(7, 188, 7));
+    
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px #aaaa;
+    place-self: start;
+    grid-column: 1/2;
+    border-top-left-radius: 0;
+    border-top-right-radius: 1.1em;
+    border-bottom-left-radius: 1.1em;
+    border-bottom-right-radius: 1.1em;
+    padding: 0.5em;
+    border-left: 4px solid black;
+}
+/* user */
+.chat_message{
+    width: 60%;
+    background-image: linear-gradient(100deg, rgb(33, 33, 33), rgb(48, 48, 48), rgb(56, 55, 55));
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px #aaaa;
+    place-self: end;
+    grid-column: 2/3;
+    border-top-left-radius: 1.1em;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 1.1em;
+    border-bottom-right-radius: 1.1em;
+    padding: 0.5em;
+    border-right: 4px solid green;
+}
+input{
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
