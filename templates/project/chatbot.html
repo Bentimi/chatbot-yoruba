@@ -2,60 +2,64 @@
 {% load static %}
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
     <link rel="stylesheet" href="{% static 'css/history.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-200">
+<body class="bg-gray-200">
 
-    <section id="section" class=" shadow-md shadow-gray-600 w-full max-w-lg">
-        <div class="flex mx-3 justify-between items-center">
-        <div class="justify-center flex">
-            <div class="my-5 bg-green-900 rounded-full w-fit p-3">
-                <img class="w-12 animate-bounce" src="{% static 'img/robot.png' %}" alt="">
-            </div>
-        </div>
-        <div class="justify- flex mb-2">
-           <div class="shadow-gray-500 shadow-sm bg-gray-600 bg-opacity-15 w-fit p-3 rounded-xl backdrop-blur-md">
-            <p class="text-center text-black text-opacity-50">
-                Yoruba ChatBot
-            </p>
-            <p id="current-time" class="font-mono font-semibold text-center"></p>
-           </div>
-        </div>
-    </div>
-    
-        <div id="chat-history" class="flex flex-col gap-2 h-96  p-4 overflow-y-auto container">
-            <div class="border-l-8 border-green-900 p-3 bg-green-200">
-                <h5 class="text-xl font-semibold">ALAYE PATAKI</h5>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita cupiditate similique quis, 
-                    quasi iste optio quas molestiae amet quia doloremque repellat autem libero? Quos tempora nihil culpa quas nobis quam.
-                </p>
-            </div>
-            <!-- Chat History -->
-        </div>
-
-        <main class="justify-center flex py-5">
-            <div id="chatbox">
-                <form id="chat-form" class="flex justify-center items-center">
-
-                <input id="chat-input" type="text" class="text-black border-2 border-gray-400 h-10 w-80 px-2 text-xl rounded-2xl bg-transparent appearance-none focus:outline-1 font-serif focus:border-transparent focus:ring-gray-400 focus:border-b-2 
-                shadow-gray-700 min-h-15 sm:w-96 lg:min-w-80 placeholder-gray-700 backdrop-blur-md caret-red-700" placeholder="Type Here ...">
-
-
-            <button type="submit" class="ml-2">
-                    <div class="bg-green-900 rounded-full p-2 text-center h-10 w-10 text-white hover:bg-green-800 text-xl">
-                        <ion-icon name="send"></ion-icon>
+    <section  class="flex items-center justify-center  md:fixed sm:fixed sm:w-full sm:h-full" style="height: 100vh;">
+        <main id="section" class="shadow-md shadow-gray-600 w-full max-w-lg">
+            <div class="flex mx-3 justify-between items-center">
+                <div class="justify-center flex">
+                    <div class="my-5 bg-green-900 rounded-full w-fit p-3">
+                        <img class="w-12 animate-bounce" src="{% static 'img/robot.png' %}" alt="">
                     </div>
-                </button>
-            <!-- <button type="submit" class="bg-green-900 ml-1 flex justify-center items-center text-center text-xl p-2
-            text-white shadow-md shadow-gray-600 w-12
-             rounded-full hover:bg-green-800">
-                    <ion-icon name="send"></ion-icon>
-                </button> -->
-                </form>
+                </div>
+                <div class="justify- flex mb-2">
+                   <div class="shadow-gray-500 shadow-sm bg-gray-600 bg-opacity-15 w-fit p-3 rounded-xl backdrop-blur-md">
+                    <p class="text-center text-black text-opacity-50">
+                        Yoruba ChatBot
+                    </p>
+                    <p id="current-time" class="font-mono font-semibold text-center"></p>
+                   </div>
+                </div>
             </div>
+            
+                <div id="chat-history" class="flex flex-col gap-2 h-96  p-4 overflow-y-auto container">
+                    <div class="border-l-8 border-green-900 p-3 bg-green-200">
+                        <h5 class="text-xl font-semibold">ALAYE PATAKI</h5>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita cupiditate similique quis, 
+                            quasi iste optio quas molestiae amet quia doloremque repellat autem libero? Quos tempora nihil culpa quas nobis quam.
+                        </p>
+                    </div>
+                    <!-- Chat History -->
+                </div>
+        
+                <main class="justify-center flex py-5">
+                    <div id="chatbox">
+                        <form id="chat-form" class="flex justify-center items-center">
+        
+                        <input id="chat-input" type="text" class="text-black border-2 border-gray-400 h-10 w-80 px-2 text-xl rounded-2xl bg-transparent appearance-none focus:outline-1 font-serif focus:border-transparent focus:ring-gray-400 focus:border-b-2 
+                        shadow-gray-700 min-h-15 sm:w-96 lg:min-w-80 placeholder-gray-700 backdrop-blur-md caret-red-700" placeholder="Type Here ...">
+        
+        
+                    <button type="submit" class="ml-2">
+                            <div class="bg-green-900 rounded-full p-2 text-center h-10 w-10 text-white hover:bg-green-800 text-xl">
+                                <ion-icon name="send"></ion-icon>
+                            </div>
+                        </button>
+                    <!-- <button type="submit" class="bg-green-900 ml-1 flex justify-center items-center text-center text-xl p-2
+                    text-white shadow-md shadow-gray-600 w-12
+                     rounded-full hover:bg-green-800">
+                            <ion-icon name="send"></ion-icon>
+                        </button> -->
+                        </form>
+                    </div>
+                </main>
         </main>
     </section>
     
